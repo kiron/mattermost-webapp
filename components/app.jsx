@@ -14,6 +14,22 @@ const LazyRoot = React.lazy(() => import('components/root'));
 
 const Root = makeAsyncComponent(LazyRoot);
 
+// eslint-disable-next-line func-names
+(function(history) {
+    var pushState = history.pushState;
+    // eslint-disable-next-line func-names
+    history.pushState = function(state, key, path) {
+        top.document.dispatchEvent(new CustomEvent('navigation', {detail: {path}}));
+        // eslint-disable-next-line prefer-rest-params
+        pushState.apply(history, arguments);
+    };
+    window.onpopstate = history.onpushstate;
+}(window.history));
+
+const hostname = window.location.hostname;
+const domain = hostname.substr(hostname.lastIndexOf('.', hostname.lastIndexOf('.') - 1) + 1);
+document.domain = domain;
+
 class App extends React.PureComponent {
     render() {
         return (

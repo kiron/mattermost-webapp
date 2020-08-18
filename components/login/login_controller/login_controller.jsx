@@ -17,19 +17,12 @@ import {intlShape} from 'utils/react_intl';
 import * as Utils from 'utils/utils.jsx';
 import {showNotification} from 'utils/notifications';
 import {t} from 'utils/i18n.jsx';
-
-import logoImage from 'images/logo.png';
-
-import SiteNameAndDescription from 'components/common/site_name_and_description';
 import AnnouncementBar from 'components/announcement_bar';
 import FormError from 'components/form_error';
 import FormattedMarkdownMessage from 'components/formatted_markdown_message.jsx';
-import BackButton from 'components/common/back_button';
 import LoadingScreen from 'components/loading_screen';
-import LoadingWrapper from 'components/widgets/loading/loading_wrapper';
 import SuccessIcon from 'components/widgets/icons/fa_success_icon';
 import WarningIcon from 'components/widgets/icons/fa_warning_icon';
-import LocalizedInput from 'components/localized_input/localized_input';
 import Markdown from 'components/markdown';
 
 import LoginMfa from '../login_mfa.jsx';
@@ -42,7 +35,6 @@ class LoginController extends React.PureComponent {
         isLicensed: PropTypes.bool.isRequired,
         currentUser: PropTypes.object,
         customBrandText: PropTypes.string,
-        customDescriptionText: PropTypes.string,
         enableCustomBrand: PropTypes.bool.isRequired,
         enableLdap: PropTypes.bool.isRequired,
         enableOpenServer: PropTypes.bool.isRequired,
@@ -359,17 +351,9 @@ class LoginController extends React.PureComponent {
     createCustomLogin = () => {
         if (this.props.enableCustomBrand) {
             const text = this.props.customBrandText || '';
-            const brandImageUrl = Client4.getBrandImageUrl(0);
-            const brandImageStyle = this.state.brandImageError ? {display: 'none'} : {};
 
             return (
                 <div>
-                    <img
-                        alt={'brand image'}
-                        src={brandImageUrl}
-                        onError={this.handleBrandImageError}
-                        style={brandImageStyle}
-                    />
                     <div>
                         <Markdown
                             message={text}
@@ -542,68 +526,17 @@ class LoginController extends React.PureComponent {
         const emailSigninEnabled = this.state.emailSigninEnabled;
 
         if (emailSigninEnabled || usernameSigninEnabled || ldapEnabled) {
-            let errorClass = '';
-            if (this.state.serverError) {
-                errorClass = ' has-error';
-            }
-
             loginControls.push(
-                <form
-                    key='loginBoxes'
-                    onSubmit={this.preSubmit}
-                >
-                    <div className='signup__email-container'>
-                        <FormError
-                            error={this.state.serverError}
-                            margin={true}
-                        />
-                        <div className={'form-group' + errorClass}>
-                            <input
-                                id='loginId'
-                                className='form-control'
-                                ref={this.loginIdInput}
-                                name='loginId'
-                                value={this.state.loginId}
-                                onChange={this.handleLoginIdChange}
-                                placeholder={this.createLoginPlaceholder()}
-                                spellCheck='false'
-                                autoCapitalize='off'
-                                autoFocus={true}
-                            />
-                        </div>
-                        <div className={'form-group' + errorClass}>
-                            <LocalizedInput
-                                id='loginPassword'
-                                type='password'
-                                className='form-control'
-                                ref={this.passwordInput}
-                                name='password'
-                                value={this.state.password}
-                                onChange={this.handlePasswordChange}
-                                placeholder={{id: t('login.password'), defaultMessage: 'Password'}}
-                                spellCheck='false'
-                            />
-                        </div>
-                        <div className='form-group'>
-                            <button
-                                id='loginButton'
-                                type='submit'
-                                className='btn btn-primary'
-                            >
-                                <LoadingWrapper
-                                    id='login_button_signing'
-                                    loading={this.state.loading}
-                                    text={Utils.localizeMessage('login.signInLoading', 'Signing in...')}
-                                >
-                                    <FormattedMessage
-                                        id='login.signIn'
-                                        defaultMessage='Sign in'
-                                    />
-                                </LoadingWrapper>
-                            </button>
-                        </div>
-                    </div>
-                </form>,
+                <div>
+                    <h4>{'Something went wrong'}</h4>
+                    <a
+                        href='#'
+                        onClick={() => {
+                            parent.location.reload(true);
+                            return false;
+                        }}
+                    >{'Reload'}</a>
+                </div>,
             );
         }
 
@@ -629,23 +562,6 @@ class LoginController extends React.PureComponent {
                             />
                         </Link>
                     </span>
-                </div>,
-            );
-        }
-
-        if (usernameSigninEnabled || emailSigninEnabled) {
-            loginControls.push(
-                <div
-                    id='login_forgot'
-                    key='forgotPassword'
-                    className='form-group'
-                >
-                    <Link to={'/reset_password'}>
-                        <FormattedMessage
-                            id='login.forgot'
-                            defaultMessage='I forgot my password.'
-                        />
-                    </Link>
                 </div>,
             );
         }
@@ -782,8 +698,6 @@ class LoginController extends React.PureComponent {
 
     render() {
         const {
-            customDescriptionText,
-            siteName,
             initializing,
         } = this.props;
 
@@ -794,7 +708,6 @@ class LoginController extends React.PureComponent {
         let content;
         let customContent;
         let customClass;
-        let backButton;
         if (this.state.showMfa) {
             content = (
                 <LoginMfa
@@ -803,7 +716,6 @@ class LoginController extends React.PureComponent {
                     submit={this.submit}
                 />
             );
-            backButton = (<BackButton onClick={this.hideMfa}/>);
         } else {
             content = this.createLoginOptions();
             customContent = this.createCustomLogin();
@@ -815,25 +727,12 @@ class LoginController extends React.PureComponent {
         return (
             <div>
                 <AnnouncementBar/>
-                {backButton}
                 <div
                     id='login_section'
                     className='col-sm-12'
                 >
                     <div className={'signup-team__container ' + customClass}>
-                        <div className='signup__markdown'>
-                            {customContent}
-                        </div>
-                        <img
-                            alt={'signup team logo'}
-                            className='signup-team-logo'
-                            src={logoImage}
-                        />
                         <div className='signup__content'>
-                            <SiteNameAndDescription
-                                customDescriptionText={customDescriptionText}
-                                siteName={siteName}
-                            />
                             {content}
                         </div>
                     </div>

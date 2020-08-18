@@ -4417,7 +4417,7 @@ const AdminDefinition = {
                                 display_name_default: 'Windows Dark',
                             },
                         ],
-                        isHidden: it.isnt(it.licensed), // E10 and higher
+                        isHidden: false, // E10 and higher
                     },
                     {
                         type: Constants.SettingsTypes.TYPE_BOOL,

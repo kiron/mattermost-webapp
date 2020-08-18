@@ -480,7 +480,9 @@ export function toRgbValues(hexStr) {
     return rgbaStr;
 }
 
-export function applyTheme(theme) {
+// eslint-disable-next-line no-unused-vars
+export function applyTheme(ignoreArg) {
+    const theme = Constants.THEMES.default;
     if (theme.sidebarBg) {
         changeCss('.app__body .sidebar--left .sidebar__switcher, .sidebar--left, .app__body .modal .settings-modal .settings-table .settings-links, .app__body .sidebar--menu', 'background:' + theme.sidebarBg);
         changeCss('body.app__body', 'scrollbar-face-color:' + theme.sidebarBg);

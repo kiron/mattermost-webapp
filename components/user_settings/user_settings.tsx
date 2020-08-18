@@ -7,9 +7,6 @@ import {UserProfile} from 'mattermost-redux/types/users';
 
 import AdvancedTab from './advanced';
 import DisplayTab from './display';
-import GeneralTab from './general';
-import NotificationsTab from './notifications';
-import SecurityTab from './security';
 import SidebarTab from './sidebar';
 
 type Props = {
@@ -26,45 +23,7 @@ type Props = {
 
 export default class UserSettings extends React.PureComponent<Props, {}> {
     render() {
-        if (this.props.activeTab === 'general') {
-            return (
-                <div>
-                    <GeneralTab
-                        user={this.props.user}
-                        activeSection={this.props.activeSection}
-                        updateSection={this.props.updateSection}
-                        updateTab={this.props.updateTab}
-                        closeModal={this.props.closeModal}
-                        collapseModal={this.props.collapseModal}
-                    />
-                </div>
-            );
-        } else if (this.props.activeTab === 'security') {
-            return (
-                <div>
-                    <SecurityTab
-                        user={this.props.user}
-                        activeSection={this.props.activeSection}
-                        updateSection={this.props.updateSection}
-                        closeModal={this.props.closeModal}
-                        collapseModal={this.props.collapseModal}
-                        setRequireConfirm={this.props.setRequireConfirm}
-                    />
-                </div>
-            );
-        } else if (this.props.activeTab === 'notifications') {
-            return (
-                <div>
-                    <NotificationsTab
-                        user={this.props.user}
-                        activeSection={this.props.activeSection}
-                        updateSection={this.props.updateSection}
-                        closeModal={this.props.closeModal}
-                        collapseModal={this.props.collapseModal}
-                    />
-                </div>
-            );
-        } else if (this.props.activeTab === 'display') {
+        if (this.props.activeTab === 'display') {
             return (
                 <div>
                     <DisplayTab

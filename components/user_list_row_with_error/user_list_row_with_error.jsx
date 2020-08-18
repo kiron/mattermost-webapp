@@ -62,7 +62,7 @@ export default class UserListRowWithError extends React.PureComponent {
         }
 
         // QUICK HACK, NEEDS A PROP FOR TOGGLING STATUS
-        let email = this.props.user.email;
+        let email = null;
         let emailStyle = 'more-modal__description';
         let status;
         if (this.props.user.is_bot) {

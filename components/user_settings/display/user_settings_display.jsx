@@ -16,7 +16,6 @@ import {t} from 'utils/i18n';
 
 import SettingItemMax from 'components/setting_item_max.jsx';
 import SettingItemMin from 'components/setting_item_min';
-import ThemeSetting from 'components/user_settings/display/user_settings_theme';
 import BackIcon from 'components/widgets/icons/fa_back_icon';
 
 import ManageTimezones from './manage_timezones';
@@ -42,25 +41,14 @@ export default class UserSettingsDisplay extends React.PureComponent {
         activeSection: PropTypes.string,
         closeModal: PropTypes.func.isRequired,
         collapseModal: PropTypes.func.isRequired,
-        setRequireConfirm: PropTypes.func.isRequired,
-        setEnforceFocus: PropTypes.func.isRequired,
         timezones: PropTypes.array.isRequired,
         userTimezone: PropTypes.object.isRequired,
-        allowCustomThemes: PropTypes.bool,
         enableLinkPreviews: PropTypes.bool,
         defaultClientLocale: PropTypes.string,
-        enableThemeSelection: PropTypes.bool,
-        configTeammateNameDisplay: PropTypes.string,
         currentUserTimezone: PropTypes.string,
         enableTimezone: PropTypes.bool,
         shouldAutoUpdateTimezone: PropTypes.bool,
-        militaryTime: PropTypes.string,
         teammateNameDisplay: PropTypes.string,
-        channelDisplayMode: PropTypes.string,
-        messageDisplay: PropTypes.string,
-        collapseDisplay: PropTypes.string,
-        linkPreviewDisplay: PropTypes.string,
-        lockTeammateNameDisplay: PropTypes.bool,
         actions: PropTypes.shape({
             getSupportedTimezones: PropTypes.func.isRequired,
             autoUpdateTimezone: PropTypes.func.isRequired,
@@ -512,43 +500,6 @@ export default class UserSettingsDisplay extends React.PureComponent {
             },
         });
 
-        const teammateNameDisplaySection = this.createSection({
-            section: Preferences.NAME_NAME_FORMAT,
-            display: 'teammateNameDisplay',
-            value: this.props.lockTeammateNameDisplay ? this.props.configTeammateNameDisplay : this.state.teammateNameDisplay,
-            defaultDisplay: this.props.configTeammateNameDisplay,
-            title: {
-                id: t('user.settings.display.teammateNameDisplayTitle'),
-                message: 'Teammate Name Display',
-            },
-            firstOption: {
-                value: Constants.TEAMMATE_NAME_DISPLAY.SHOW_USERNAME,
-                radionButtonText: {
-                    id: t('user.settings.display.teammateNameDisplayUsername'),
-                    message: 'Show username',
-                },
-            },
-            secondOption: {
-                value: Constants.TEAMMATE_NAME_DISPLAY.SHOW_NICKNAME_FULLNAME,
-                radionButtonText: {
-                    id: t('user.settings.display.teammateNameDisplayNicknameFullname'),
-                    message: 'Show nickname if one exists, otherwise show first and last name',
-                },
-            },
-            thirdOption: {
-                value: Constants.TEAMMATE_NAME_DISPLAY.SHOW_FULLNAME,
-                radionButtonText: {
-                    id: t('user.settings.display.teammateNameDisplayFullname'),
-                    message: 'Show first and last name',
-                },
-            },
-            description: {
-                id: t('user.settings.display.teammateNameDisplayDescription'),
-                message: 'Set how to display other user\'s names in posts and the Direct Messages list.',
-            },
-            disabled: this.props.lockTeammateNameDisplay,
-        });
-
         let timezoneSelection;
         if (this.props.enableTimezone && !this.props.shouldAutoUpdateTimezone) {
             const userTimezone = this.props.userTimezone;
@@ -620,35 +571,6 @@ export default class UserSettingsDisplay extends React.PureComponent {
             },
         });
 
-        const channelDisplayModeSection = this.createSection({
-            section: Preferences.CHANNEL_DISPLAY_MODE,
-            display: 'channelDisplayMode',
-            value: this.state.channelDisplayMode,
-            defaultDisplay: Preferences.CHANNEL_DISPLAY_MODE_FULL_SCREEN,
-            title: {
-                id: t('user.settings.display.channelDisplayTitle'),
-                message: 'Channel Display',
-            },
-            firstOption: {
-                value: Preferences.CHANNEL_DISPLAY_MODE_FULL_SCREEN,
-                radionButtonText: {
-                    id: t('user.settings.display.fullScreen'),
-                    message: 'Full width',
-                },
-            },
-            secondOption: {
-                value: Preferences.CHANNEL_DISPLAY_MODE_CENTERED,
-                radionButtonText: {
-                    id: t('user.settings.display.fixedWidthCentered'),
-                    message: 'Fixed width, centered',
-                },
-            },
-            description: {
-                id: t('user.settings.display.channeldisplaymode'),
-                message: 'Select the width of the center channel.',
-            },
-        });
-
         let languagesSection;
         let userLocale = this.props.user.locale;
         if (this.props.activeSection === 'languages') {
@@ -696,22 +618,6 @@ export default class UserSettingsDisplay extends React.PureComponent {
             languagesSection = null;
         }
 
-        let themeSection;
-        if (this.props.enableThemeSelection) {
-            themeSection = (
-                <div>
-                    <ThemeSetting
-                        selected={this.props.activeSection === 'theme'}
-                        updateSection={this.updateSection}
-                        setRequireConfirm={this.props.setRequireConfirm}
-                        setEnforceFocus={this.props.setEnforceFocus}
-                        allowCustomThemes={this.props.allowCustomThemes}
-                    />
-                    <div className='divider-dark'/>
-                </div>
-            );
-        }
-
         return (
             <div id='displaySettings'>
                 <div className='modal-header'>
@@ -751,14 +657,11 @@ export default class UserSettingsDisplay extends React.PureComponent {
                         />
                     </h3>
                     <div className='divider-dark first'/>
-                    {themeSection}
                     {clockSection}
-                    {teammateNameDisplaySection}
                     {timezoneSelection}
                     {linkPreviewSection}
                     {collapseSection}
                     {messageDisplaySection}
-                    {channelDisplayModeSection}
                     {languagesSection}
                 </div>
             </div>

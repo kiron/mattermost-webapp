@@ -328,7 +328,7 @@ class ProfilePopover extends React.PureComponent {
             );
         }
 
-        const email = this.props.user.email;
+        const email = this.props.user.email && false;
         if (email && !this.props.user.is_bot && !haveOverrideProp) {
             dataContent.push(
                 <hr

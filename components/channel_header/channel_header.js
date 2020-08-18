@@ -44,7 +44,6 @@ import * as Utils from 'utils/utils';
 import ChannelHeaderPlug from 'plugins/channel_header_plug';
 
 import HeaderIconWrapper from './components/header_icon_wrapper';
-import UserGuideDropdown from './components/user_guide_dropdown';
 
 const headerMarkdownOptions = {singleline: true, mentionHighlight: false, atMentions: true};
 const popoverMarkdownOptions = {singleline: false, mentionHighlight: false, atMentions: true};
@@ -812,7 +811,6 @@ class ChannelHeader extends React.PureComponent {
                         onClick={this.getFlagged}
                         tooltipKey={'flaggedPosts'}
                     />
-                    <UserGuideDropdown/>
                 </div>
             </div>
         );

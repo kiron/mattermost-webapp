@@ -35,7 +35,7 @@ export default class SidebarHeaderDropdownButton extends React.PureComponent {
                 className='team__name'
                 data-teamid={this.props.teamId}
             >
-                {this.props.teamDisplayName}
+                {this.props.currentUser.nickname}
             </h1>
         );
         if (this.props.teamDescription) {
@@ -43,7 +43,7 @@ export default class SidebarHeaderDropdownButton extends React.PureComponent {
                 <OverlayTrigger
                     delayShow={Constants.OVERLAY_TIME_DELAY}
                     placement='bottom'
-                    overlay={<Tooltip id='team-name__tooltip'>{this.props.teamDescription}</Tooltip>}
+                    overlay={<Tooltip id='team-name__tooltip'>{this.props.currentUser.nickname}</Tooltip>}
                 >
                     {teamNameWithToolTip}
                 </OverlayTrigger>

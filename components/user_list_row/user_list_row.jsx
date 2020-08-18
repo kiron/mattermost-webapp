@@ -49,7 +49,7 @@ export default class UserListRow extends React.PureComponent {
         }
 
         // QUICK HACK, NEEDS A PROP FOR TOGGLING STATUS
-        let email = this.props.user.email;
+        let email = null;
         let emailStyle = 'more-modal__description';
         let status;
         if (this.props.extraInfo && this.props.extraInfo.length > 0) {

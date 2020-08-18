@@ -10,7 +10,7 @@ import MattermostLogoSvg from 'images/logo.svg';
 import FormattedMarkdownMessage from 'components/formatted_markdown_message';
 import CheckboxCheckedIcon from 'components/widgets/icons/checkbox_checked_icon';
 import BrowserStore from 'stores/browser_store';
-import {LandingPreferenceTypes} from 'utils/constants';
+import Constants, {LandingPreferenceTypes} from 'utils/constants';
 import * as Utils from 'utils/utils';
 
 import * as UserAgent from 'utils/user_agent';
@@ -56,7 +56,7 @@ export default class LinkingLandingPage extends PureComponent<Props, State> {
     }
 
     componentDidMount() {
-        Utils.applyTheme(this.props.defaultTheme);
+        Utils.applyTheme(Constants.THEMES.default);
         if (this.checkLandingPreferenceApp()) {
             this.openMattermostApp();
         }

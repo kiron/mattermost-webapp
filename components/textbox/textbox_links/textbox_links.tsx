@@ -3,7 +3,6 @@
 
 import React, {MouseEvent} from 'react';
 import {FormattedMessage} from 'react-intl';
-import {Link} from 'react-router-dom';
 
 type Props = {
     showPreview?: boolean;
@@ -125,17 +124,6 @@ export default class TextboxLinks extends React.PureComponent<Props> {
             <div className={'help__text ' + helpTextClass}>
                 {helpText}
                 {previewLink}
-                <Link
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    to='/help/messaging'
-                    className='textbox-help-link'
-                >
-                    <FormattedMessage
-                        id='textbox.help'
-                        defaultMessage='Help'
-                    />
-                </Link>
             </div>
         );
     }

@@ -121,7 +121,7 @@ function renderJoinTeamMessage(post) {
     return (
         <FormattedMessage
             id='api.team.join_team.post_and_forget'
-            defaultMessage='{username} joined the team.'
+            defaultMessage='{username} joined the community.'
             values={{username}}
         />
     );
@@ -133,7 +133,7 @@ function renderLeaveTeamMessage(post) {
     return (
         <FormattedMessage
             id='api.team.leave.left'
-            defaultMessage='{username} left the team.'
+            defaultMessage='{username} left the community.'
             values={{username}}
         />
     );
@@ -146,7 +146,7 @@ function renderAddToTeamMessage(post) {
     return (
         <FormattedMessage
             id='api.team.add_member.added'
-            defaultMessage='{addedUsername} added to the team by {username}.'
+            defaultMessage='{addedUsername} added to the coommunity by {username}.'
             values={{
                 username,
                 addedUsername,
@@ -161,7 +161,7 @@ function renderRemoveFromTeamMessage(post) {
     return (
         <FormattedMessage
             id='api.team.remove_user_from_team.removed'
-            defaultMessage='{removedUsername} was removed from the team.'
+            defaultMessage='{removedUsername} was removed from the community.'
             values={{
                 removedUsername,
             }}
