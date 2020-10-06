@@ -316,8 +316,6 @@ class LoginController extends React.PureComponent {
         const query = new URLSearchParams(this.props.location.search);
         const redirectTo = query.get('redirect_to');
 
-        Utils.setCSRFFromCookie();
-
         // Record a successful login to local storage. If an unintentional logout occurs, e.g.
         // via session expiration, this bit won't get reset and we can notify the user as such.
         LocalStorageStore.setWasLoggedIn(true);

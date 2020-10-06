@@ -12,7 +12,7 @@ import PDFJS from 'pdfjs-dist';
 import 'sass/styles.scss';
 import 'katex/dist/katex.min.css';
 
-import {isDevMode, setCSRFFromCookie} from 'utils/utils';
+import {isDevMode} from 'utils/utils';
 import store from 'stores/redux_store.jsx';
 import App from 'components/app';
 
@@ -38,7 +38,6 @@ function preRenderSetup(callwhendone) {
             store.dispatch(logError({type: 'developer', message: 'DEVELOPER MODE: A JavaScript error has occurred.  Please use the JavaScript console to capture and report the error (row: ' + line + ' col: ' + column + ').'}, true));
         }
     };
-    setCSRFFromCookie();
     callwhendone();
 }
 

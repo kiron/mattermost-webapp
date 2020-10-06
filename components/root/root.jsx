@@ -3,7 +3,6 @@
 
 import $ from 'jquery';
 
-import {rudderAnalytics, Client4} from 'mattermost-redux/client';
 import PropTypes from 'prop-types';
 import React from 'react';
 import FastClick from 'fastclick';
@@ -21,7 +20,7 @@ import {loadRecentlyUsedCustomEmojis} from 'actions/emoji_actions.jsx';
 import {initializePlugins} from 'plugins';
 import 'plugins/export.js';
 import Pluggable from 'plugins/pluggable';
-import Constants, {StoragePrefixes} from 'utils/constants';
+import {StoragePrefixes} from 'utils/constants';
 import {HFTRoute, LoggedInHFTRoute} from 'components/header_footer_template_route';
 import IntlProvider from 'components/intl_provider';
 import NeedsTeam from 'components/needs_team';
@@ -84,8 +83,6 @@ const LoggedInRoute = ({component: Component, ...rest}) => (
 
 export default class Root extends React.PureComponent {
     static propTypes = {
-        diagnosticsEnabled: PropTypes.bool,
-        diagnosticId: PropTypes.string,
         noAccounts: PropTypes.bool,
         showTermsOfService: PropTypes.bool,
         permalinkRedirectTeamName: PropTypes.string,
@@ -157,44 +154,6 @@ export default class Root extends React.PureComponent {
     onConfigLoaded = () => {
         if (isDevMode()) {
             enableDevModeFeatures();
-        }
-
-        const diagnosticId = this.props.diagnosticId;
-
-        const rudderKey = Constants.DIAGNOSTICS_RUDDER_KEY;
-        const rudderUrl = Constants.DIAGNOSTICS_RUDDER_DATAPLANE_URL;
-
-        if (rudderKey != null && rudderKey !== '' && !rudderKey.startsWith('placeholder') && rudderUrl != null && rudderUrl !== '' && !rudderUrl.startsWith('placeholder') && this.props.diagnosticsEnabled) {
-            Client4.enableRudderEvents();
-            rudderAnalytics.load(rudderKey, rudderUrl);
-
-            rudderAnalytics.identify(diagnosticId, {}, {
-                context: {
-                    ip: '0.0.0.0',
-                },
-                page: {
-                    path: '',
-                    referrer: '',
-                    search: '',
-                    title: '',
-                    url: '',
-                },
-                anonymousId: '00000000000000000000000000',
-            });
-
-            rudderAnalytics.page('ApplicationLoaded', {
-                path: '',
-                referrer: '',
-                search: '',
-                title: '',
-                url: '',
-            },
-            {
-                context: {
-                    ip: '0.0.0.0',
-                },
-                anonymousId: '00000000000000000000000000',
-            });
         }
 
         if (this.props.location.pathname === '/' && this.props.noAccounts) {

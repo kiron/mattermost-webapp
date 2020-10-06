@@ -264,7 +264,7 @@ var config = {
             meta: {
                 csp: {
                     'http-equiv': 'Content-Security-Policy',
-                    content: 'script-src \'self\'' + CSP_UNSAFE_EVAL_IF_DEV,
+                    content: 'script-src \'self\' ' + CSP_UNSAFE_EVAL_IF_DEV,
                 },
             },
         }),

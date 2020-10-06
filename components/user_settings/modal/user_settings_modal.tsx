@@ -101,7 +101,7 @@ class UserSettingsModal extends React.PureComponent<Props, State> {
         super(props);
 
         this.state = {
-            active_tab: 'general',
+            active_tab: 'display',
             active_section: '',
             showConfirmModal: false,
             enforceFocus: true,

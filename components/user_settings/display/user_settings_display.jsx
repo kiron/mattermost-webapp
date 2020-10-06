@@ -656,6 +656,7 @@ export default class UserSettingsDisplay extends React.PureComponent {
                             defaultMessage='Display Settings'
                         />
                     </h3>
+                    <p>{'Update your Profile picture and nickname in your Profile page'}</p>
                     <div className='divider-dark first'/>
                     {clockSection}
                     {timezoneSelection}

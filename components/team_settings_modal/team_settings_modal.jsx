@@ -22,7 +22,7 @@ export default class TeamSettingsModal extends React.PureComponent {
         super(props);
 
         this.state = {
-            activeTab: 'general',
+            activeTab: 'display',
             activeSection: '',
             show: true,
         };
